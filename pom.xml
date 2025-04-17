@@ -69,7 +69,7 @@
             <url>http://54.160.166.120:8081/repository/fintech-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
+            <id>nexus-releases</id>
             <url>http://54.160.166.120:8081/repository/fintech-snapshot/</url>
         </snapshotRepository>
     </distributionManagement>
