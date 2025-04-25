@@ -1,0 +1,65 @@
+// Scripted Jenkinsfile
+// Repo: https://github.com/LandmakTechnology/maven-web-application
+
+node {
+    def mavenHome = tool name: 'maven399'
+
+    stage('1. Clone Code') {
+       git branch: 'main', url: "https://github.com/nwa1990/Fintech-payment-services"
+    }
+
+    stage('2. Maven Build') {
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+
+    stage('3. Code Quality') {
+        echo 'Performing Code Quality Analysis'
+        sh "${mavenHome}/bin/mvn sonar:sonar"
+        // Ensure pom.xml has proper SonarQube details
+    }
+
+    stage('4. Upload Artifacts') {
+        sh "${mavenHome}/bin/mvn deploy"
+        // Make sure distributionManagement tag in pom.xml is configured
+        // Add credentials in settings.xml on Jenkins server
+    }
+
+    /*
+    stage('5. Deploy to UAT') {
+        // Uncomment and configure when ready
+        // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://3.149.9.59:8080')], contextPath: null, war: 'target/*.war'
+    }
+    */
+
+    stage('6. Manual Approval') {
+        echo 'Please review and approve'
+        timeout(time: 5, unit: 'HOURS') {
+            input message: 'Application ready for deployment. Please approve.'
+        }
+    }
+
+    stage('7. Deploy to Prod') {
+        echo 'Deploying apps to production/market'
+        deploy adapters: [
+            tomcat9(
+                credentialsId: 'tomcatAccess',
+                path: '',
+                url: 'http://54.234.37.143:9077/'
+            )
+        ], contextPath: null, war: 'target/*.war'
+    }
+
+    stage('8. Email Notification') {
+        emailext(
+            body: '''Hi Team,
+
+The test, build, and deployment to production was a success.
+
+Regards,
+Landmark Technologies''',
+            recipientProviders: [developers()],
+            subject: 'Landmark Build Success',
+            to: 'michealinheanyi1@gmail.com'
+        )
+    }
+}
