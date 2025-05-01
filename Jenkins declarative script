@@ -62,7 +62,7 @@ Regards,
 Landmark Technologies''',
             recipientProviders: [developers()],
             subject: 'Landmark Build Success',
-            to: 'michealinheanyi1@gmail.com'
+            to: 'michealiheanyi1@gmail.com'
         )
     }
 }
