@@ -39,14 +39,9 @@ node {
     }
 
     stage('7. Deploy to Prod') {
-        // echo 'Deploying apps to production/market'
-        // deploy adapters: [
-          //  tomcat9(
-                credentialsId: 'tomcatAccess',
-                path: '',
-                url: 'http://54.234.37.143:9077/'
-            )
-        ], contextPath: null, war: 'target/*.war'
+        echo 'Deploying apps to production/market'
+        deploy adapters: [
+          deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://3.83.146.145:8080')], contextPath: null, war: 'target/*.war'
     }
 
     stage('8. Email Notification') {
