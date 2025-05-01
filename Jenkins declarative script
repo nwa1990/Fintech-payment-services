@@ -19,7 +19,7 @@ node {
     }
 
     stage('4. Upload Artifacts') {
-        sh "${mavenHome}/bin/mvn deploy"
+       // sh "${mavenHome}/bin/mvn deploy"
         // Make sure distributionManagement tag in pom.xml is configured
         // Add credentials in settings.xml on Jenkins server
     }
@@ -33,7 +33,7 @@ node {
 
     stage('6. Manual Approval') {
         echo 'Please review and approve'
-        timeout(time: 5, unit: 'HOURS') {
+       // timeout(time: 5, unit: 'HOURS') {
             input message: 'Application ready for deployment. Please approve.'
         }
     }
