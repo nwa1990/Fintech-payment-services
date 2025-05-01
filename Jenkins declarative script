@@ -41,7 +41,7 @@ node {
     stage('7. Deploy to Prod') {
         // echo 'Deploying apps to production/market'
         // deploy adapters: [
-            tomcat9(
+          //  tomcat9(
                 credentialsId: 'tomcatAccess',
                 path: '',
                 url: 'http://54.234.37.143:9077/'
