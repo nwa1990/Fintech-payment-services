@@ -26,8 +26,8 @@ node {
 
     /*
     stage('5. Deploy to UAT') {
-        // Uncomment and configure when ready
-        // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://3.83.146.145:8080')], contextPath: null, war: 'target/*.war'
+        Uncomment and configure when ready
+        deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://3.83.146.145:8080')], contextPath: null, war: 'target/*.war'
     }
     */
 
@@ -39,8 +39,8 @@ node {
     }
 
     stage('7. Deploy to Prod') {
-        echo 'Deploying apps to production/market'
-        deploy adapters: [
+        // echo 'Deploying apps to production/market'
+        // deploy adapters: [
             tomcat9(
                 credentialsId: 'tomcatAccess',
                 path: '',
