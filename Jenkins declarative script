@@ -43,7 +43,7 @@ node {
         echo "Deploying app to production"
         deploy(
             adapters: [tomcat9(
-                credentialsId: 'tomcat-deploy',
+                credentialsId: 'tomcat-deploe',
                 path: '',
                 url: 'http://3.83.146.145:8080'
             )],
