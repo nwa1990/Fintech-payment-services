@@ -23,8 +23,8 @@ node {
             docker push ${imageName}:${imageTag}
         """
     }
-}
+ }
     stage('5. Cleanup (Optional)') {
         sh "docker rmi ${imageName}:${imageTag} || true"
     }
-}
+ }
