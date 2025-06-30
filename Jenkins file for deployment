@@ -5,7 +5,7 @@ node {
     def imageTag = "${env.BUILD_latest}"
 
     stage('1. Clone') {
-        git "https://github.com/nwa1990/Fintech-payment-services"
+        git branch: 'main', url: 'https://github.com/nwa1990/Fintech-payment-services'
     }
 
     stage('2. Test + Build (Maven)') {
