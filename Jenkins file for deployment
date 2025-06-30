@@ -1,0 +1,30 @@
+// This file is used to deploy a .war file using docker 
+node {
+    def mavenHome = tool name: 'Maven399'
+    def imageName = "nugoezenwa/fintechapp"
+    def imageTag = "${env.BUILD_NUMBER}"
+
+    stage('1. Clone') {
+        git "https://github.com/LandmakTechnology/maven-web-application"
+    }
+
+    stage('2. Test + Build (Maven)') {
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+
+    stage('3. Build Docker Image') {
+        sh "docker build -t ${imageName}:${imageTag} ."
+    }
+
+    stage('4. Push to DockerHub') {
+    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        sh """
+            echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
+            docker push ${imageName}:${imageTag}
+        """
+    }
+}
+    stage('5. Cleanup (Optional)') {
+        sh "docker rmi ${imageName}:${imageTag} || true"
+    }
+}
