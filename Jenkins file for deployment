@@ -1,11 +1,11 @@
 // This file is used to deploy a .war file using docker 
 node {
     def mavenHome = tool name: 'Maven399'
-    def imageName = "nugoezenwa/fintechapp"
-    def imageTag = "${env.BUILD_NUMBER}"
+    def imageName = "nwa1990/fintech2002"
+    def imageTag = "${env.BUILD_latest}"
 
     stage('1. Clone') {
-        git "https://github.com/LandmakTechnology/maven-web-application"
+        git "https://github.com/nwa1990/Fintech-payment-services/tree/main/src/main"
     }
 
     stage('2. Test + Build (Maven)') {
